@@ -13,9 +13,9 @@
 
 struct Group
 {
-    unsigned int ClientsNumber;
-    struct Client *Clients[MAX_CLIENTS_IN_GROUP];
-    pthread_t Thread;
+    unsigned int clientsNumber;
+    struct Client *clients[MAX_CLIENTS_IN_GROUP];
+    pthread_t thread;
 };
 
 #endif
