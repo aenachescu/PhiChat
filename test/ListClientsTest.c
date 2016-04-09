@@ -7,6 +7,7 @@ CUT_DEFINE_TEST(NewNodeListClientsTest)
 
     CUT_CHECK(NewNodeListClients(NULL) == POINTER_NULL);
     CUT_CHECK(NewNodeListClients(&node) == NO_ERROR);
+    CUT_CHECK(node->clientsNumber == 0);
 
     CUT_CHECK(node->next == NULL);
     for (size_t i = 0; i < MAX_CLIENTS_IN_NODE; i++)
