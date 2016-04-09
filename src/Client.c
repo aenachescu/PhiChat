@@ -55,6 +55,9 @@ enum PhiChatErrors Login(__IN__ struct Client *client,
     if (client == NULL)
         return CLIENT_NULL;
 
+    if (id == 0)
+        return INVALID_ID;
+
     if (client->logged == 1)
         return CLIENT_ALREADY_LOGGED;
 
