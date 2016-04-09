@@ -15,7 +15,8 @@ enum PhiChatErrors
     NAME_TOO_LONG               = -4,
     INVALID_ID                  = -5,
     CLIENT_ALREADY_LOGGED       = -6,
-    CLIENT_NOT_LOGGED           = -7
+    CLIENT_NOT_LOGGED           = -7,
+    INVALID_SOCKET              = -8
 };
 
 #endif
