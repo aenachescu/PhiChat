@@ -75,6 +75,27 @@
 
 
 
+#define CUT_DEFINE_MODULE(x)                                                    \
+    void x(void)                                                                \
+    {
+
+
+
+#define CUT_END_MODULE                                                          \
+    }
+
+
+
+#define CUT_INCLUDE_MODULE(x)                                                   \
+    void x(void)
+
+
+
+#define CUT_CALL_TESTS_FROM_MODULE(x)                                           \
+    x()
+
+
+
 void CUT_incrementPassedChecks(void);
 void CUT_incrementFailedChecks(void);
 void CUT_incrementPassedTests(void);
