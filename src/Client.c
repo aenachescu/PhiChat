@@ -16,6 +16,8 @@ enum PhiChatErrors NewClient(__OUT__ struct Client **newClient,
         return POINTER_NULL;
     if (name == NULL)
         return NAME_NULL;
+    if (socket == 0)
+        return INVALID_SOCKET;
 
     size_t length = strlen(name);
 
