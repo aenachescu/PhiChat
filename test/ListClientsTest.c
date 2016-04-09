@@ -27,7 +27,7 @@ CUT_DEFINE_TEST(DeleteNodeListClientsTest)
     NewNodeListClients(&node);
     struct Client *client;
     NewClient(&client, "test", 1);
-    node->client[0] = client;
+    node->clients[0] = client;
     CUT_CHECK(DeleteNodeListClients(&node) == CLIENT_NOT_NULL);
 
     struct NodeListClients *node2;
@@ -35,7 +35,7 @@ CUT_DEFINE_TEST(DeleteNodeListClientsTest)
     node->next = node2;
     CUT_CHECK(DeleteNodeListClients(&node) != NO_ERROR);
 
-    DeleteClient(&node->client[0]);
+    DeleteClient(&node->clients[0]);
     CUT_CHECK(DeleteNodeListClients(&node) == NODE_NOT_NULL);
     CUT_CHECK(DeleteNodeListClients(&node->next) == NO_ERROR);
     CUT_CHECK(DeleteNodeListClients(&node) == NO_ERROR);
@@ -43,5 +43,5 @@ CUT_DEFINE_TEST(DeleteNodeListClientsTest)
 
 CUT_DEFINE_MODULE(ListClientsTest)
     CUT_CALL_TEST(NewNodeListClientsTest);
-    CUT_CALL_TEST(DeleteNodeListCientsTest);
+    CUT_CALL_TEST(DeleteNodeListClientsTest);
 CUT_END_MODULE
