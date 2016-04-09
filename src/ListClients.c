@@ -21,6 +21,8 @@ enum PhiChatErrors NewNodeListClients(__OUT__ struct NodeListClients** node)
     for (size_t i = 0; i < MAX_CLIENTS_IN_NODE; i++)
         (*node)->clients[i] = NULL;
 
+    (*node)->clientsNumber = 0;
+
     return NO_ERROR;
 }
 
