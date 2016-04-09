@@ -32,8 +32,43 @@ CUT_DEFINE_TEST(DeleteClientTest)
     CUT_CHECK(client == NULL);
 }
 
+CUT_DEFINE_TEST(LoginTest)
+{
+    struct Client *client = NULL;
+    NewClient(&client, "test", 1);
+
+    CUT_CHECK(Login(NULL, 10) == CLIENT_NULL);
+    CUT_CHECK(Login(client, 0) == INVALID_ID);
+    CUT_CHECK(Login(NULL, 0) != NO_ERROR);
+
+    CUT_CHECK(Login(client, 10) == NO_ERROR);
+    CUT_CHECK(client->logged == 1);
+    CUT_CHECK(client->id == 10);
+
+    CUT_CHECK(Login(client, 20) == CLIENT_ALREADY_LOGGED);
+
+    DeleteClient(&client);
+}
+
+CUT_DEFINE_TEST(LogoutTest)
+{
+    struct Client *client = NULL;
+    NewClient(&client, "test", 1);
+    Login(client, 10);
+
+    CUT_CHECK(Logout(NULL) == CLIENT_NULL);
+    CUT_CHECK(Logout(client) == NO_ERROR);
+    CUT_CHECK(client->logged == 0);
+    CUT_CHECK(client->id == 0);
+    CUT_CHECK(Logout(client) == CLIENT_NOT_LOGGED);
+
+    DeleteClient(&client);
+}
+
 CUT_DEFINE_MODULE(ClientTest)
     CUT_CALL_TEST(NewClientTest);
     CUT_CALL_TEST(DeleteClientTest);
+    CUT_CALL_TEST(LoginTest);
+    CUT_CALL_TEST(LogoutTest);
 CUT_END_MODULE
 
