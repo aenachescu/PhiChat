@@ -1,0 +1,8 @@
+#include <cut.h>
+
+CUT_INCLUDE_MODULE(ClientTest);
+
+CUT_DEFINE_MAIN
+    CUT_CALL_TESTS_FROM_MODULE(ClientTest);
+CUT_END_MAIN
+
