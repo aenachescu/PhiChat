@@ -4,7 +4,7 @@
  */
 
 #ifndef PhiChat_SERVER
-#define PhiChar_SERVER
+#define PhiChat_SERVER
 
 #include <Defines.h>
 #include <Errors.h>
