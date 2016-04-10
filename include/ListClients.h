@@ -24,6 +24,7 @@ struct ListClients
     struct NodeListClients *head;
 };
 
+
 enum PhiChatErrors NewNodeListClients(__OUT__ struct NodeListClients**);
 
 enum PhiChatErrors DeleteNodeListClients(__IN__ struct NodeListClients**);
@@ -33,6 +34,7 @@ enum PhiChatErrors AddClientInNode(__IN__ struct NodeListClients*,
 
 enum PhiChatErrors RemoveClientFromNode(__IN__ struct NodeListClients*,
                                         __IN__ struct Client*);
+
 
 
 
