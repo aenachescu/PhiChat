@@ -27,9 +27,9 @@ CUT_DEFINE_TEST(DeleteNodeListClientsTest)
 
     NewNodeListClients(&node);
     struct Client *client;
-    NewClient(&client, "test", 1);
+    NewClient(&client, 1);
     node->clients[0] = client;
-    CUT_CHECK(DeleteNodeListClients(&node) == CLIENT_NOT_NULL);
+    CUT_CHECK(DeleteNodeListClients(&node) == NODE_NOT_EMPTY);
 
     struct NodeListClients *node2;
     NewNodeListClients(&node2);
