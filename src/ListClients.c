@@ -101,12 +101,12 @@ enum PhiChatErrors NewListClients (__OUT__ struct ListClients **list)
     if (list == NULL)
         return POINTER_NULL;
 
-    *list = (struct ListClients *) malloc (sizeof (ListClients));
+    *list = (struct ListClients *) malloc (sizeof (struct ListClients));
 
     if (*list == NULL)
         return LIST_NULL;
 
-    return NewNodeListClients (&list->head);
+    return NewNodeListClients (&(*list)->head);
 }
 
 enum PhiChatErrors DeleteListClients (__IN__ struct ListClients **list)
@@ -154,7 +154,7 @@ enum PhiChatErrors AddClientInList (__IN__ struct ListClients *list,
     if (index->clientsNumber < MAX_CLIENTS_IN_NODE)
         return AddClientInNode (index, client);
 
-    enum PhiChatErrors error = NewNodeClientsList (&index->next);
+    enum PhiChatErrors error = NewNodeListClients (&index->next);
     if (error != NO_ERROR)
         return error;
 
