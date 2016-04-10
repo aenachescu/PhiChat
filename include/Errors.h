@@ -16,7 +16,13 @@ enum PhiChatErrors
     INVALID_ID                  = -5,
     CLIENT_ALREADY_LOGGED       = -6,
     CLIENT_NOT_LOGGED           = -7,
-    INVALID_SOCKET              = -8
+    INVALID_SOCKET              = -8,
+    GROUP_NULL                  = -9,
+    GROUP_NOT_EMPTY             = -10,
+    GROUP_STILL_RUNS            = -11,
+    GROUP_FULL                  = -12,
+    GROUP_EMPTY                 = -13,
+    CLIENT_NOT_FOUND            = -14
 };
 
 #endif
