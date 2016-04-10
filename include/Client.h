@@ -20,12 +20,12 @@ struct Client
 };
 
 enum PhiChatErrors NewClient(__OUT__ struct Client**,
-                             __IN__  const char *name,
                              __IN__  const uint32_t socket);
 
 enum PhiChatErrors DeleteClient(__IN__ struct Client**);
 
 enum PhiChatErrors Login(__IN__ struct Client*,
+                         __IN__ const char *name,
                          __IN__ const uint64_t id);
 
 enum PhiChatErrors Logout(__IN__ struct Client*);
