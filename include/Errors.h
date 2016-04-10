@@ -22,13 +22,13 @@ enum PhiChatErrors
     GROUP_STILL_RUNS            = -11,
     GROUP_FULL                  = -12,
     GROUP_EMPTY                 = -13,
-    CLIENT_NOT_FOUND            = -14
+    CLIENT_NOT_FOUND            = -14,
     NODE_NULL                   = -15,
     NODE_NOT_EMPTY              = -16,
     NODE_NOT_NULL               = -17,
     NODE_FULL                   = -18,
     NODE_EMPTY                  = -19,
-    LIST_NULL                   = -20,
+    LIST_NULL                   = -20
 };
 
 #endif
