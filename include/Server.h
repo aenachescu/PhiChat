@@ -10,8 +10,16 @@
 #include <Errors.h>
 #include <HeapGroup.h>
 
+#ifdef __linux
+#include <pthread.h>
+#endif
+
 struct Server
 {
+    int socket;
+#ifdef __linux
+    pthread_t thread;
+#endif
     struct HeapGroup *groups;
 };
 
