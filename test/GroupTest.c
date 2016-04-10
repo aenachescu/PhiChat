@@ -45,7 +45,7 @@ CUT_DEFINE_TEST(AddClientInGroupTest)
 
     struct Client *clients[MAX_CLIENTS_IN_GROUP + 1];
     for (size_t i = 0; i <= MAX_CLIENTS_IN_GROUP; i++)
-        NewClient(&clients[i], "test", i + 1);
+        NewClient(&clients[i], i + 1);
 
     CUT_CHECK(AddClientInGroup(NULL, NULL) != NO_ERROR);
     CUT_CHECK(AddClientInGroup(group, NULL) == CLIENT_NULL);
@@ -73,7 +73,7 @@ CUT_DEFINE_TEST(RemoveClientFromGroupTest)
 
     NewGroup(&group);
     for (size_t i = 0; i < MAX_CLIENTS_IN_GROUP; i++)
-        NewClient(&clients[i], "test", i + 1);
+        NewClient(&clients[i], i + 1);
 
     CUT_CHECK(RemoveClientFromGroup(group, NULL) == CLIENT_NULL);
     CUT_CHECK(RemoveClientFromGroup(NULL, clients[0]) == GROUP_NULL);
