@@ -18,8 +18,11 @@ enum PhiChatErrors
     CLIENT_NOT_LOGGED           = -7,
     INVALID_SOCKET              = -8,
     NODE_NULL                   = -9,
-    CLIENT_NOT_NULL             = -10,
-    NODE_NOT_NULL               = -11
+    NODE_NOT_EMPTY              = -10,
+    NODE_NOT_NULL               = -11,
+    NODE_FULL                   = -12,
+    NODE_EMPTY                  = -13,
+    LIST_NULL                   = -14
 };
 
 #endif
