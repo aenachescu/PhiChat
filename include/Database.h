@@ -1,6 +1,6 @@
 /**
  * @file Database.h
- * @brief Database structure, as well as helper function
+ * @brief Database structure, as well as helper function.
  */
 
 #ifndef PhiChat_DATABASE
@@ -30,7 +30,7 @@ enum PhiChatErrors InitDatabase(__IN__ struct Database*);
 
 enum PhiChatErrors ConnectToDatabase(__IN__ struct Database*);
 
-enum PhiChatErrors DisconnectToDatabase(__IN__ struct Database*);
+enum PhiChatErrors DisconnecFromDatabase(__IN__ struct Database*);
 
 #endif
 
