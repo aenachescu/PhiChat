@@ -37,22 +37,22 @@ enum PhiChatErrors NewDatabase(__OUT__ struct Database **db,
 
     (*db)->name = malloc(strlen(name)+1);
     if((*db)->name == NULL)
-        return POINTER_NULL;
+        return DATABASE_NAME_NULL;
     strcpy((*db)->name, name);
 
     (*db)->host = malloc(strlen(host)+1);
     if((*db)->host == NULL)
-        return POINTER_NULL;
+        return DATABASE_HOST_NULL;
     strcpy((*db)->host, host);
 
     (*db)->user = malloc(strlen(user)+1);
     if((*db)->user == NULL)
-        return POINTER_NULL;
+        return DATABASE_USER_NULL;
     strcpy((*db)->user, user);
 
     (*db)->password = malloc(strlen(pw)+1);
     if((*db)->password == NULL)
-        return POINTER_NULL;
+        return DATABASE_PASSWORD_NULL;
     strcpy((*db)->password, pw);
 
     return NO_ERROR;
@@ -104,6 +104,30 @@ enum PhiChatErrors InitDatabase(__IN__ struct Database *db)
         fprintf (stdout, "%s\n", mysql_error((*db)->sql));
         return DATABASE_ERROR_INIT;
     }
+
+    return NO_ERROR;
+}
+
+enum PhiChatErrors ConnectToDatabase(__IN__ struct Database *db)
+{
+    if (db == NULL)
+        return DATABASE_NULL;
+
+    if (mysql_real_connect(db->sql, db->host, db->user, db->password, db->name, 0, NULL, 0) == NULL)
+    {
+        fprintf (stdout, "%s\n", mysql_error((*db)->sql));
+        return DATABASE_CONNECTION_FAILED;
+    }
+
+    return NO_ERROR;
+}
+
+enum PhiChatErrors DisconnecFromDatabase(__IN__ struct Database *db)
+{
+    if (db == NULL)
+        return DATABASE_NULL;
+
+    mysql_close(db->sql);
 
     return NO_ERROR;
 }
