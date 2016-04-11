@@ -10,6 +10,7 @@
 #include <Defines.h>
 
 #define DEFAULT_PORT 12000
+#define DEFAULT_MAX_CONNECTIONS 100
 
 struct Config
 {
