@@ -45,6 +45,21 @@ enum PhiChatErrors DeleteConfig(__IN__ struct Config **conf)
         return CONFIG_NULL;
     }
 
+    if ((*conf)->databaseHost != NULL)
+        free((*conf)->databaseHost);
+
+    if ((*conf)->databaseUser != NULL)
+        free((*conf)->databaseUser);
+
+    if ((*conf)->databasePassword != NULL)
+        free((*conf)->databasePassword);
+
+    if ((*conf)->databaseName != NULL)
+        free((*conf)->databaseName);
+
+    if ((*conf)->logfileName != NULL)
+        free((*conf)->logfileName);
+
     free(*conf);
     *conf = NULL;
 
