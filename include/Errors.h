@@ -33,7 +33,8 @@ enum PhiChatErrors
     CONFIG_UNEXPECTED           = -22,
     CONFIG_EXPECTED_ASSIGN      = -23,
     CONFIG_INTEGER_EXPECTED     = -24,
-    CONFIG_EXPECTED_IDENTIFIER  = -25
+    CONFIG_EXPECTED_IDENTIFIER  = -25,
+    CONFIG_FILENAME_NULL        = -26
 };
 
 #endif
