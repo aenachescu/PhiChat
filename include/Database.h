@@ -6,8 +6,10 @@
 #ifndef PhiChat_DATABASE
 #define PhiChat_DATABASE
 
-#include <mysql.h>
+#include <mysql/mysql.h>
+
 #include <Errors.h>
+#include <Defines.h>
 
 struct Database
 {
