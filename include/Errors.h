@@ -34,6 +34,7 @@ enum PhiChatErrors
     CONFIG_EXPECTED_ASSIGN      = -23,
     CONFIG_INTEGER_EXPECTED     = -24,
     CONFIG_EXPECTED_IDENTIFIER  = -25,
+    CONFIG_FILENAME_NULL        = -26,
     DATABASE_NAME_NULL          = -27,
     DATABASE_HOST_NULL          = -28,
     DATABASE_USER_NULL          = -29,

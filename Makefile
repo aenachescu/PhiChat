@@ -7,6 +7,7 @@ LDLIBS=
 
 OBJS=\
 src/Client.o \
+src/Output.o \
 src/Group.o \
 src/ListClients.o \
 src/Config.o \
