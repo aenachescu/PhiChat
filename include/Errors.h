@@ -28,8 +28,8 @@ enum PhiChatErrors
     NODE_FULL                   = -17,
     NODE_EMPTY                  = -18,
     LIST_NULL                   = -19,
-    LIST_NOT_EMPTY              = -20
+    LIST_NOT_EMPTY              = -20,
+    CONFIG_NULL                 = -21
 };
 
 #endif
-

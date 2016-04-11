@@ -15,7 +15,7 @@
 struct Config
 {
     int port;
-    unsigned long long int *maxConnections;
+    unsigned long long int maxConnections;
 
     char *databaseHost;
     char *databaseUser;
