@@ -67,23 +67,23 @@ enum PhiChatErrors DeleteDatabase(__IN__ struct Database **db)
         return DATABASE_NULL;
 
     if((*db)->sql == NULL)
-        return POINTER_NULL;
+        return DATABASE_NULL;
     free((*db)->sql);
 
     if((*db)->name == NULL)
-        return POINTER_NULL;
+        return DATABASE_NAME_NULL;
     free((*db)->name);
 
     if((*db)->host == NULL)
-        return POINTER_NULL;
+        return DATABASE_HOST_NULL;
     free((*db)->host);
 
     if((*db)->user == NULL)
-        return POINTER_NULL;
+        return DATABASE_USER_NULL;
     free((*db)->user);
 
     if((*db)->password == NULL)
-        return POINTER_NULL;
+        return DATABASE_PASSWORD_NULL;
     free((*db)->password);
 
     free(*db);
@@ -94,7 +94,7 @@ enum PhiChatErrors DeleteDatabase(__IN__ struct Database **db)
 
 enum PhiChatErrors InitDatabase(__IN__ struct Database *db)
 {
-    (db == NULL)
+    if (db == NULL)
         return DATABASE_NULL;
 
     (*db)->sql = mysql_init (NULL);
