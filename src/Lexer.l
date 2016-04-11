@@ -6,7 +6,7 @@
 %%
 =                               return ASSIGN;
 :                               return COLON;
-$                               return EXPAND;
+"$"                             return EXPAND;
 "SERVER_PORT"                   return PORT;
 "SERVER_MAX_CONNECTIONS"        return MAX_CONNECTIONS;
 "SERVER_LOG"                    return LOG;
@@ -19,7 +19,7 @@ $                               return EXPAND;
 "NAME"                          return DATABASE_NAME;
 [a-zA-Z][_a-zA-Z0-9]*           return IDENTIFIER;
 [1-9][0-9]*                     return INTEGER;
-[ \t\n]                         return ;
+[ \t\n]                         ;
 .                               printf("Unexpected character!\n");
 %%
 
