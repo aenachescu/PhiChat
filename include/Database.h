@@ -1,6 +1,6 @@
 /**
  * @file Database.h
- * @brief Database structure, as well as helper function
+ * @brief Database structure, as well as helper function.
  */
 
 #ifndef PhiChat_DATABASE
