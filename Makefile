@@ -2,12 +2,13 @@
 
 CFLAGS= -Wall -Wextra -std=c99
 CPPFLAGS= -I./include
-LDFLAGS= -O2
+LDFLAGS= -O2 `mysql_config --cflags --libs`
 LDLIBS=
 
 OBJS=\
 src/Client.o \
 src/Output.o \
+src/Database.o \
 src/Group.o \
 src/ListClients.o \
 src/Config.o \
