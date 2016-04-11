@@ -33,3 +33,4 @@ phiChat
 *.dSYM/
 
 *.swp
+Lexer.yy.c
