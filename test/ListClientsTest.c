@@ -42,7 +42,43 @@ CUT_DEFINE_TEST(DeleteNodeListClientsTest)
     CUT_CHECK(DeleteNodeListClients(&node) == NO_ERROR);
 }
 
+CUT_DEFINE_TEST(AddClientInNodeTest)
+{
+
+}
+
+CUT_DEFINE_TEST(RemoveClientFromNodeTest)
+{
+
+}
+
+CUT_DEFINE_TEST(NewListClientsTest)
+{
+
+}
+
+CUT_DEFINE_TEST(DeleteListClientsTest)
+{
+
+}
+
+CUT_DEFINE_TEST(AddClientInListTest)
+{
+
+}
+
+CUT_DEFINE_TEST(RemoveClientFromListTest)
+{
+
+}
+
 CUT_DEFINE_MODULE(ListClientsTest)
     CUT_CALL_TEST(NewNodeListClientsTest);
     CUT_CALL_TEST(DeleteNodeListClientsTest);
+    CUT_CALL_TEST(AddClientInNodeTest);
+    CUT_CALL_TEST(RemoveClientFromNodeTest);
+    CUT_CALL_TEST(NewListClientsTest);
+    CUT_CALL_TEST(DeleteListClientsTest);
+    CUT_CALL_TEST(AddClientInListTest);
+    CUT_CALL_TEST(RemoveClientFromListTest);
 CUT_END_MODULE
