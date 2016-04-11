@@ -38,9 +38,6 @@ enum PhiChatErrors DeleteNodeListClients(__IN__ struct NodeListClients **node)
         if ((*node)->clients[i] != NULL)
             return NODE_NOT_EMPTY;
 
-    if ((*node)->next != NULL)
-        return NODE_NOT_NULL;
-
     free(*node);
     *node = NULL;
 
@@ -115,15 +112,29 @@ enum PhiChatErrors DeleteListClients(__IN__ struct ListClients **list)
     if (*list == NULL)
         return LIST_NULL;
 
-    enum PhiChatErrors error;
-    struct NodeListClients *temp;
-    while ((*list)->head)
+    if ((*list)->head == NULL)
     {
-        temp = (*list)->head->next;
-        error = DeleteNodeListClients(&((*list)->head));
-        if (error != NO_ERROR)
-            return error;
-        (*list)->head = temp;
+        free(*list);
+        *list = NULL;
+        return NO_ERROR;
+    }
+
+    struct NodeListClients *node1, *node2;
+
+    node1 = (*list)->head;
+    while (node1 != NULL)
+    {
+        if (node1->clientsNumber > 0)
+            return LIST_NOT_EMPTY;
+        node1 = node1->next;
+    }
+
+    node1 = (*list)->head;
+    while (node1 != NULL)
+    {
+        node2 = node1->next;
+        DeleteNodeListClients(&node1);
+        node1 = node2;
     }
 
     free(*list);
@@ -170,17 +181,17 @@ enum PhiChatErrors RemoveClientFromList(__IN__ struct ListClients *list,
 
     struct NodeListClients *index = list->head;
     enum PhiChatErrors error;
-    while (index->next)
+    while (index)
     {
         error = RemoveClientFromNode(index, client);
         if (error == NO_ERROR)
             return NO_ERROR;
         else
-            if (error == CLIENT_NOT_FOUND)
+            if (error == NODE_EMPTY || error == CLIENT_NOT_FOUND)
                 index = index->next;
             else
                 return error;
     }
 
-    return RemoveClientFromNode(index, client);
+    return CLIENT_NOT_FOUND;
 }
