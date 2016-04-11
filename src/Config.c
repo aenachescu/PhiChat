@@ -12,9 +12,10 @@ extern int yylineno;
 extern char* yytext;
 extern FILE* yyin;
 
-enum PhiChatErrors NewConfig(__OUT__ struct Config** conf)
+enum PhiChatErrors NewConfig(__OUT__ struct Config **conf)
 {
-    if (conf == NULL) {
+    if (conf == NULL)
+    {
         return POINTER_NULL;
     }
 
@@ -32,24 +33,35 @@ enum PhiChatErrors NewConfig(__OUT__ struct Config** conf)
     return NO_ERROR;
 }
 
-enum PhiChatErrors DeleteConfig(__IN__ struct Config** conf)
+enum PhiChatErrors DeleteConfig(__IN__ struct Config **conf)
 {
-    if (conf == NULL) {
+    if (conf == NULL)
+    {
         return POINTER_NULL;
     }
 
-    if (*conf == NULL) {
+    if (*conf == NULL)
+    {
         return CONFIG_NULL;
     }
 
     free(*conf);
+    *conf = NULL;
+
     return NO_ERROR;
 }
 
-enum PhiChatErrors ReadConfig(__IN__ struct Config* conf, __IN__ const char* name)
+enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
+                              __IN__ const char *name)
 {
-    if (conf == NULL) {
+    if (conf == NULL)
+    {
         return CONFIG_NULL;
+    }
+
+    if (name == NULL)
+    {
+        return CONFIG_FILENAME_NULL;
     }
 
     yyin = fopen(name, "r");
@@ -57,115 +69,156 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config* conf, __IN__ const char* nam
     int ntoken = yylex();
     int vtoken;
 
-    while (ntoken) {
-        if (ntoken == LOG) {
+    while (ntoken)
+    {
+        if (ntoken == LOG)
+        {
             vtoken = yylex();
-            if (vtoken != COLON) {
-                printf("':' was expected on line %d, but we got '%s'.\n", yylineno, yytext);
-            }
-        } else if (ntoken == DATABASE) {
-            vtoken = yylex();
-            if (vtoken != COLON) {
-                printf("':' was expected on line %d, but we got '%s'.\n", yylineno, yytext);
-            }
-        } else {
-            vtoken = yylex();
-            if (vtoken != ASSIGN) {
-                printf("'=' was expected on line %d, but we got '%s'.\n", yylineno, yytext);
-                return CONFIG_EXPECTED_ASSIGN;
-            }
-
-            vtoken = yylex();
-            switch (ntoken) {
-                int tokenLen;
-                case PORT:
-                    if (vtoken != INTEGER) {
-                        printf("Was expected an integer on line %d, but we got '%s'.\n", yylineno, yytext);
-                        return CONFIG_INTEGER_EXPECTED;
-                    }
-
-                    conf->port = strtoumax(yytext, NULL, 10);
-                    break;
-                case MAX_CONNECTIONS:
-                    if (vtoken != INTEGER) {
-                        printf("Was expected an integer on line %d, but we got '%s'.\n", yylineno, yytext);
-                        return CONFIG_INTEGER_EXPECTED;
-                    }
-
-                    conf->maxConnections = strtoumax(yytext, NULL, 10);
-                    break;
-                case LOG_FILENAME:
-                    if (vtoken != IDENTIFIER) {
-                        printf("Was expected an identifier on line %d, but we got '%s'.\n", yylineno, yytext);
-                        return CONFIG_EXPECTED_IDENTIFIER;
-                    }
-
-                    tokenLen = strlen(yytext);
-                    conf->logfileName = malloc(tokenLen + 1);
-                    memcpy(conf->logfileName, yytext, tokenLen);
-                    conf->logfileName[tokenLen] = '\0';
-                    break;
-                case LOG_DAILY:
-                    if (vtoken != IDENTIFIER) {
-                        printf("Was expected an identifier on line %d, but we got '%s'.\n", yylineno, yytext);
-                        return CONFIG_EXPECTED_IDENTIFIER;
-                    }
-
-                    if (!strcmp(yytext, "YES")) {
-                        conf->respawn = 24;
-                    }
-                    break;
-                case DATABASE_HOST:
-                    if (vtoken != IDENTIFIER) {
-                        printf("Was expected an identifier on line %d, but we got '%s'.\n", yylineno, yytext);
-                        return CONFIG_EXPECTED_IDENTIFIER;
-                    }
-
-                    tokenLen = strlen(yytext);
-                    conf->databaseHost = malloc(tokenLen + 1);
-                    memcpy(conf->databaseHost, yytext, tokenLen);
-                    conf->databaseHost[tokenLen] = '\0';
-                    break;
-                case DATABASE_USER:
-                    if (vtoken != IDENTIFIER) {
-                        printf("Was expected an identifier on line %d, but we got '%s'.\n", yylineno, yytext);
-                        return CONFIG_EXPECTED_IDENTIFIER;
-                    }
-
-                    tokenLen = strlen(yytext);
-                    conf->databaseUser = malloc(tokenLen + 1);
-                    memcpy(conf->databaseUser, yytext, tokenLen);
-                    conf->databaseUser[tokenLen] = '\0';
-                    break;
-                case DATABASE_PASSWORD:
-                    if (vtoken != IDENTIFIER) {
-                        printf("Was expected an identifier on line %d, but we got '%s'.\n", yylineno, yytext);
-                        return CONFIG_EXPECTED_IDENTIFIER;
-                    }
-
-                    tokenLen = strlen(yytext);
-                    conf->databasePassword = malloc(tokenLen + 1);
-                    memcpy(conf->databasePassword, yytext, tokenLen);
-                    conf->databasePassword[tokenLen] = '\0';
-                    break;
-                case DATABASE_NAME:
-                    if (vtoken != IDENTIFIER) {
-                        printf("Was expected an identifier on line %d, but we got '%s'.\n", yylineno, yytext);
-                        return CONFIG_EXPECTED_IDENTIFIER;
-                    }
-
-                    tokenLen = strlen(yytext);
-                    conf->databaseName = malloc(tokenLen + 1);
-                    memcpy(conf->databaseName, yytext, tokenLen);
-                    conf->databaseName[tokenLen] = '\0';
-                    break;
-
-                default:
-                    printf("Unexpected token '%s' on line %d.\n", yytext, yylineno);
-                    return CONFIG_UNEXPECTED;
-                    break;
+            if (vtoken != COLON)
+            {
+                printf("':' was expected on line %d, but we got '%s'.\n",
+                        yylineno, yytext);
             }
         }
+        else
+            if (ntoken == DATABASE)
+            {
+                vtoken = yylex();
+                if (vtoken != COLON)
+                {
+                    printf("':' was expected on line %d, but we got '%s'.\n",
+                            yylineno, yytext);
+                }
+            }
+            else
+            {
+                vtoken = yylex();
+                if (vtoken != ASSIGN)
+                {
+                    printf("'=' was expected on line %d, but we got '%s'.\n",
+                            yylineno, yytext);
+                    return CONFIG_EXPECTED_ASSIGN;
+                }
+
+                vtoken = yylex();
+                switch (ntoken)
+                {
+                    int tokenLen;
+                    case PORT:
+                        if (vtoken != INTEGER)
+                        {
+                            printf("Was expected an integer on line %d, but we got '%s'.\n",
+                                    yylineno, yytext);
+                            return CONFIG_INTEGER_EXPECTED;
+                        }
+
+                        conf->port = strtoumax(yytext, NULL, 10);
+                        break;
+
+                    case MAX_CONNECTIONS:
+                        if (vtoken != INTEGER)
+                        {
+                            printf("Was expected an integer on line %d, but we got '%s'.\n",
+                                    yylineno, yytext);
+                            return CONFIG_INTEGER_EXPECTED;
+                        }
+
+                        conf->maxConnections = strtoumax(yytext, NULL, 10);
+                        break;
+
+                    case LOG_FILENAME:
+                        if (vtoken != IDENTIFIER)
+                        {
+                            printf("Was expected an identifier on line %d, but we got '%s'.\n",
+                                    yylineno, yytext);
+                            return CONFIG_EXPECTED_IDENTIFIER;
+                        }
+
+                        tokenLen = strlen(yytext);
+                        conf->logfileName = malloc(tokenLen + 1);
+                        memcpy(conf->logfileName, yytext, tokenLen);
+                        conf->logfileName[tokenLen] = '\0';
+                        break;
+
+                    case LOG_DAILY:
+                        if (vtoken != IDENTIFIER)
+                        {
+                            printf("Was expected an identifier on line %d, but we got '%s'.\n",
+                                    yylineno, yytext);
+                            return CONFIG_EXPECTED_IDENTIFIER;
+                        }
+
+                        if (!strcmp(yytext, "YES"))
+                        {
+                            conf->respawn = 24;
+                        }
+
+                        break;
+
+                    case DATABASE_HOST:
+                        if (vtoken != IDENTIFIER)
+                        {
+                            printf("Was expected an identifier on line %d, but we got '%s'.\n",
+                                    yylineno, yytext);
+                            return CONFIG_EXPECTED_IDENTIFIER;
+                        }
+
+                        tokenLen = strlen(yytext);
+                        conf->databaseHost = malloc(tokenLen + 1);
+                        memcpy(conf->databaseHost, yytext, tokenLen);
+                        conf->databaseHost[tokenLen] = '\0';
+                        break;
+
+                    case DATABASE_USER:
+                        if (vtoken != IDENTIFIER)
+                        {
+                            printf("Was expected an identifier on line %d, but we got '%s'.\n",
+                                    yylineno, yytext);
+                            return CONFIG_EXPECTED_IDENTIFIER;
+                        }
+
+                        tokenLen = strlen(yytext);
+                        conf->databaseUser = malloc(tokenLen + 1);
+                        memcpy(conf->databaseUser, yytext, tokenLen);
+                        conf->databaseUser[tokenLen] = '\0';
+                        break;
+
+                    case DATABASE_PASSWORD:
+                        if (vtoken != IDENTIFIER)
+                        {
+                            printf("Was expected an identifier on line %d, but we got '%s'.\n",
+                                    yylineno, yytext);
+                            return CONFIG_EXPECTED_IDENTIFIER;
+                        }
+
+                        tokenLen = strlen(yytext);
+                        conf->databasePassword = malloc(tokenLen + 1);
+                        memcpy(conf->databasePassword, yytext, tokenLen);
+                        conf->databasePassword[tokenLen] = '\0';
+                        break;
+
+                    case DATABASE_NAME:
+                        if (vtoken != IDENTIFIER)
+                        {
+                            printf("Was expected an identifier on line %d, but we got '%s'.\n",
+                                    yylineno, yytext);
+                            return CONFIG_EXPECTED_IDENTIFIER;
+                        }
+
+                        tokenLen = strlen(yytext);
+                        conf->databaseName = malloc(tokenLen + 1);
+                        memcpy(conf->databaseName, yytext, tokenLen);
+                        conf->databaseName[tokenLen] = '\0';
+                        break;
+
+                    default:
+                        printf("Unexpected token '%s' on line %d.\n",
+                                yytext, yylineno);
+                        return CONFIG_UNEXPECTED;
+                        break;
+                }
+            }
+
         ntoken = yylex();
     }
 
