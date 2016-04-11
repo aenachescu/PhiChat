@@ -34,6 +34,69 @@ enum PhiChatErrors NewDatabase(__OUT__ struct Database **db,
         return DATABASE_NULL;
 
     (*db)->sql = NULL;
+
+    (*db)->name = malloc(strlen(name)+1);
+    if((*db)->name == NULL)
+        return POINTER_NULL;
+    strcpy((*db)->name, name);
+
+    (*db)->host = malloc(strlen(host)+1);
+    if((*db)->host == NULL)
+        return POINTER_NULL;
+    strcpy((*db)->host, host);
+
+    (*db)->user = malloc(strlen(user)+1);
+    if((*db)->user == NULL)
+        return POINTER_NULL;
+    strcpy((*db)->user, user);
+
+    (*db)->password = malloc(strlen(pw)+1);
+    if((*db)->password == NULL)
+        return POINTER_NULL;
+    strcpy((*db)->password, pw);
+
+    return NO_ERROR;
+}
+
+enum PhiChatErrors DeleteDatabase(__IN__ struct Database **db)
+{
+    if(db == NULL)
+        return POINTER_NULL;
+
+    if(*db == NULL)
+        return DATABASE_NULL;
+
+    if((*db)->sql == NULL)
+        return POINTER_NULL;
+    free((*db)->sql);
+
+    if((*db)->name == NULL)
+        return POINTER_NULL;
+    free((*db)->name);
+
+    if((*db)->host == NULL)
+        return POINTER_NULL;
+    free((*db)->host);
+
+    if((*db)->user == NULL)
+        return POINTER_NULL;
+    free((*db)->user);
+
+    if((*db)->password == NULL)
+        return POINTER_NULL;
+    free((*db)->password);
+
+    free(*db);
+    *db = NULL;
+
+    return NO_ERROR;
+}
+
+enum PhiChatErrors InitDatabase(__IN__ struct Database *db)
+{
+    (db == NULL)
+        return DATABASE_NULL;
+
     (*db)->sql = mysql_init (NULL);
 
     if ((*db)->sql == NULL)
@@ -42,49 +105,5 @@ enum PhiChatErrors NewDatabase(__OUT__ struct Database **db,
         return DATABASE_ERROR_INIT;
     }
 
-    (*db)->name = malloc(strlen(name)+1);
-    if((*db)->name == NULL)
-        return POINTER_NULL;
-    strcpy((*db)->name, name);
-
-    *db)->host = malloc(strlen(host)+1);
-    if((*db)->host == NULL)
-        return POINTER_NULL;
-    strcpy((*db)->host, host);
-
-    *db)->user = malloc(strlen(user)+1);
-    if((*db)->user == NULL)
-        return POINTER_NULL;
-    strcpy((*db)->user, user);
-
-    *db)->password = malloc(strlen(pw)+1);
-    if((*db)->password == NULL)
-        return POINTER_NULL;
-    strcpy((*db)->password, pw);
-
     return NO_ERROR;
-}
-
-enum PhiChatErrors DeleteDatabase(__IN__ struct Database** db)
-{
-    if(db == NULL)
-        return POINTER_NULL;
-
-    if(*db == NULL)
-        return DATABASE_NULL;
-
-    free((*db)->sql);
-    free((*db)->name);
-    free((*db)->host);
-    free((*db)->user);
-    free((*db)->password);
-    free(*db);
-    *db = NULL;
-
-    return NO_ERROR;
-}
-
-enum PhiChatErrors InitDatabase(__IN__ struct Database* db)
-{
-
 }
