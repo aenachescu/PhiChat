@@ -116,6 +116,7 @@ enum PhiChatErrors ConnectToDatabase(__IN__ struct Database *db)
     if (mysql_real_connect(db->sql, db->host, db->user, db->password, db->name, 0, NULL, 0) == NULL)
     {
         fprintf (stdout, "%s\n", mysql_error((*db)->sql));
+        db->sql = NULL;
         return DATABASE_CONNECTION_FAILED;
     }
 
@@ -128,6 +129,7 @@ enum PhiChatErrors DisconnecFromDatabase(__IN__ struct Database *db)
         return DATABASE_NULL;
 
     mysql_close(db->sql);
+    db->sql = NULL;
 
     return NO_ERROR;
 }
