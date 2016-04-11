@@ -7,10 +7,13 @@
 #define PhiChat_CONFIG
 
 #include <Errors.h>
+#include <Defines.h>
+
+#define DEFAULT_PORT 12000
 
 struct Config
 {
-    int *port;
+    int port;
     unsigned long long int *maxConnections;
 
     char *databaseHost;
@@ -26,7 +29,7 @@ struct Config
      */
     int end;
     unsigned long long int respawn;
-}
+};
 
 enum PhiChatErrors NewConfig(__OUT__ struct Config**);
 
