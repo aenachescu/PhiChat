@@ -4,14 +4,16 @@
  */
 
 #include <Database.h>
+#include <Output.h>
 
 #include <string.h>
+#include <stdlib.h>
 
 enum PhiChatErrors NewDatabase(__OUT__ struct Database **db,
-                                __IN__  const char *name,
-                                __IN__  const char *host,
-                                __IN__  const char *user,
-                                __IN__  const char *pw)
+                               __IN__  const char *name,
+                               __IN__  const char *host,
+                               __IN__  const char *user,
+                               __IN__  const char *pw)
 {
     if (db == NULL)
         return POINTER_NULL;
@@ -35,22 +37,22 @@ enum PhiChatErrors NewDatabase(__OUT__ struct Database **db,
 
     (*db)->sql = NULL;
 
-    (*db)->name = malloc(strlen(name)+1);
+    (*db)->name = malloc(strlen(name) + 1);
     if((*db)->name == NULL)
         return DATABASE_NAME_NULL;
     strcpy((*db)->name, name);
 
-    (*db)->host = malloc(strlen(host)+1);
+    (*db)->host = malloc(strlen(host) + 1);
     if((*db)->host == NULL)
         return DATABASE_HOST_NULL;
     strcpy((*db)->host, host);
 
-    (*db)->user = malloc(strlen(user)+1);
+    (*db)->user = malloc(strlen(user) + 1);
     if((*db)->user == NULL)
         return DATABASE_USER_NULL;
     strcpy((*db)->user, user);
 
-    (*db)->password = malloc(strlen(pw)+1);
+    (*db)->password = malloc(strlen(pw) + 1);
     if((*db)->password == NULL)
         return DATABASE_PASSWORD_NULL;
     strcpy((*db)->password, pw);
@@ -97,11 +99,13 @@ enum PhiChatErrors InitDatabase(__IN__ struct Database *db)
     if (db == NULL)
         return DATABASE_NULL;
 
-    (*db)->sql = mysql_init (NULL);
+    db->sql = mysql_init(NULL);
 
-    if ((*db)->sql == NULL)
+    if (db->sql == NULL)
     {
-        fprintf (stdout, "%s\n", mysql_error((*db)->sql));
+#ifndef PhiChat_TEST_MODE
+        PrintMessage(mysql_error(db->sql));
+#endif
         return DATABASE_ERROR_INIT;
     }
 
@@ -113,9 +117,12 @@ enum PhiChatErrors ConnectToDatabase(__IN__ struct Database *db)
     if (db == NULL)
         return DATABASE_NULL;
 
-    if (mysql_real_connect(db->sql, db->host, db->user, db->password, db->name, 0, NULL, 0) == NULL)
+    if (mysql_real_connect(db->sql, db->host, db->user, db->password,
+                           db->name, 0, NULL, 0) == NULL)
     {
-        fprintf (stdout, "%s\n", mysql_error((*db)->sql));
+#ifndef PhiChat_TEST_MODE
+        PrintMessage(mysql_error(db->sql));
+#endif
         db->sql = NULL;
         return DATABASE_CONNECTION_FAILED;
     }
@@ -128,8 +135,12 @@ enum PhiChatErrors DisconnecFromDatabase(__IN__ struct Database *db)
     if (db == NULL)
         return DATABASE_NULL;
 
+    if (db->sql == NULL)
+        return DATABASE_NULL;
+
     mysql_close(db->sql);
     db->sql = NULL;
 
     return NO_ERROR;
 }
+
