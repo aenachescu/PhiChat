@@ -4,6 +4,22 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
+void ReadFromKeyboard(void)
+{
+    char buffer[128];
+    size_t size = 128;
+
+    int x;
+    while (1)
+    {
+        x = getline(&buffer, &size, stdin);
+        printf("%s %d\n",buffer, x);
+        if (strcmp(buffer, "exit") == 0)
+            break;
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -53,6 +69,8 @@ int main(int argc, char **argv)
         }
     }
     PrintMessage("Configuration file is right\n");
+
+    ReadFromKeyboard();
 
     return EXIT_SUCCESS;
 }
