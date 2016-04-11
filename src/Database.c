@@ -36,7 +36,7 @@ enum PhiChatErrors NewDatabase(__OUT__ struct Database **db,
     (*db)->sql = NULL;
     (*db)->sql = mysql_init (NULL);
 
-    if ( (*db)->sql == NULL)
+    if ((*db)->sql == NULL)
     {
         fprintf (stdout, "%s\n", mysql_error((*db)->sql));
         return DATABASE_ERROR_INIT;
@@ -49,6 +49,20 @@ enum PhiChatErrors NewDatabase(__OUT__ struct Database **db,
     strcpy((*db)->user, user);
 
     strcpy((*db)->password, pw);
+
+    return NO_ERROR;
+}
+
+enum PhiChatErrors DeleteDatabase(__IN__ struct Database** db)
+{
+    if(db == NULL)
+        return POINTER_NULL;
+
+    if(*db == NULL)
+        return DATABASE_NULL;
+
+    free(*db);
+    *db = NULL;
 
     return NO_ERROR;
 }
