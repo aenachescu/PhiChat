@@ -7,7 +7,7 @@
 
 #include <string.h>
 
-enum PhiChatErrors NewDatabase (__OUT__ struct Database **db,
+enum PhiChatErrors NewDatabase(__OUT__ struct Database **db,
                                 __IN__  const char *name,
                                 __IN__  const char *host,
                                 __IN__  const char *user,
@@ -28,7 +28,7 @@ enum PhiChatErrors NewDatabase (__OUT__ struct Database **db,
     if (pw == NULL)
         return DATABASE_PASSWORD_NULL;
 
-    *db = (struct Database*) malloc (sizeof (struct Database));
+    *db = (struct Database*) malloc(sizeof(struct Database));
 
     if (*db == NULL)
         return DATABASE_NULL;
@@ -38,7 +38,7 @@ enum PhiChatErrors NewDatabase (__OUT__ struct Database **db,
 
     if ( (*db)->sql == NULL)
     {
-        fprintf (stdout, "%s\n", mysql_error ( (*db)->sql));
+        fprintf (stdout, "%s\n", mysql_error((*db)->sql));
         return DATABASE_ERROR_INIT;
     }
 
