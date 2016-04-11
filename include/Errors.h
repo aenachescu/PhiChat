@@ -29,7 +29,11 @@ enum PhiChatErrors
     NODE_EMPTY                  = -18,
     LIST_NULL                   = -19,
     LIST_NOT_EMPTY              = -20,
-    CONFIG_NULL                 = -21
+    CONFIG_NULL                 = -21,
+    CONFIG_UNEXPECTED           = -22,
+    CONFIG_EXPECTED_ASSIGN      = -23,
+    CONFIG_INTEGER_EXPECTED     = -24,
+    CONFIG_EXPECTED_IDENTIFIER  = -25
 };
 
 #endif
