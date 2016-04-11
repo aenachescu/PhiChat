@@ -6,7 +6,7 @@
 %%
 =                               return ASSIGN;
 :                               return COLON;
-"$"                             return EXPAND;
+"$DATE"                         return DATE;
 "SERVER_PORT"                   return PORT;
 "SERVER_MAX_CONNECTIONS"        return MAX_CONNECTIONS;
 "SERVER_LOG"                    return LOG;
@@ -20,7 +20,7 @@
 [a-zA-Z][_a-zA-Z0-9]*           return IDENTIFIER;
 [1-9][0-9]*                     return INTEGER;
 [ \t\n]                         ;
-.                               printf("Unexpected character!\n");
+.                               printf("Unexpected character on line %d: '%s'.\n", yylineno, yytext);
 %%
 
 int yywrap(void)
