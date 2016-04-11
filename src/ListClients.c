@@ -7,12 +7,12 @@
 
 #include <stdlib.h>
 
-enum PhiChatErrors NewNodeListClients (__OUT__ struct NodeListClients **node)
+enum PhiChatErrors NewNodeListClients(__OUT__ struct NodeListClients **node)
 {
     if (node == NULL)
         return POINTER_NULL;
 
-    *node = (struct NodeListClients *) malloc (sizeof (struct NodeListClients));
+    *node = (struct NodeListClients *) malloc(sizeof(struct NodeListClients));
 
     if (*node == NULL)
         return NODE_NULL;
@@ -26,7 +26,7 @@ enum PhiChatErrors NewNodeListClients (__OUT__ struct NodeListClients **node)
     return NO_ERROR;
 }
 
-enum PhiChatErrors DeleteNodeListClients (__IN__ struct NodeListClients **node)
+enum PhiChatErrors DeleteNodeListClients(__IN__ struct NodeListClients **node)
 {
     if (node == NULL)
         return POINTER_NULL;
@@ -35,20 +35,20 @@ enum PhiChatErrors DeleteNodeListClients (__IN__ struct NodeListClients **node)
         return NODE_NULL;
 
     for (size_t i = 0; i < MAX_CLIENTS_IN_NODE; i++)
-        if ( (*node)->clients[i] != NULL)
+        if ((*node)->clients[i] != NULL)
             return NODE_NOT_EMPTY;
 
-    if ( (*node)->next != NULL)
+    if ((*node)->next != NULL)
         return NODE_NOT_NULL;
 
-    free (*node);
+    free(*node);
     *node = NULL;
 
     return NO_ERROR;
 }
 
-enum PhiChatErrors AddClientInNode (__IN__ struct NodeListClients *node,
-                                    __IN__ struct Client *client)
+enum PhiChatErrors AddClientInNode(__IN__ struct NodeListClients *node,
+                                   __IN__ struct Client *client)
 {
     if (node == NULL)
         return NODE_NULL;
@@ -60,14 +60,13 @@ enum PhiChatErrors AddClientInNode (__IN__ struct NodeListClients *node,
         return NODE_FULL;
 
     node->clients[node->clientsNumber] = client;
-
     node->clientsNumber++;
 
     return NO_ERROR;
 }
 
-enum PhiChatErrors RemoveClientFromNode (__IN__ struct NodeListClients *node,
-        __IN__ struct Client *client)
+enum PhiChatErrors RemoveClientFromNode(__IN__ struct NodeListClients *node,
+                                        __IN__ struct Client *client)
 {
     if (node == NULL)
         return NODE_NULL;
@@ -88,7 +87,8 @@ enum PhiChatErrors RemoveClientFromNode (__IN__ struct NodeListClients *node,
             node->clients[i + 1] = NULL;
         }
     }
-    if(node->clients[node->clientsNumber-1] == node->clients[node->clientsNumber])
+
+    if (node->clients[node->clientsNumber-1] == node->clients[node->clientsNumber])
         node->clients[node->clientsNumber] = NULL;
     else
         return CLIENT_NOT_FOUND;
@@ -96,20 +96,20 @@ enum PhiChatErrors RemoveClientFromNode (__IN__ struct NodeListClients *node,
     return NO_ERROR;
 }
 
-enum PhiChatErrors NewListClients (__OUT__ struct ListClients **list)
+enum PhiChatErrors NewListClients(__OUT__ struct ListClients **list)
 {
     if (list == NULL)
         return POINTER_NULL;
 
-    *list = (struct ListClients *) malloc (sizeof (struct ListClients));
+    *list = (struct ListClients *) malloc(sizeof(struct ListClients));
 
     if (*list == NULL)
         return LIST_NULL;
 
-    return NewNodeListClients (&(*list)->head);
+    return NewNodeListClients(&(*list)->head);
 }
 
-enum PhiChatErrors DeleteListClients (__IN__ struct ListClients **list)
+enum PhiChatErrors DeleteListClients(__IN__ struct ListClients **list)
 {
     if (list == NULL)
         return POINTER_NULL;
@@ -119,23 +119,23 @@ enum PhiChatErrors DeleteListClients (__IN__ struct ListClients **list)
 
     enum PhiChatErrors error;
     struct NodeListClients *temp;
-    while ( (*list)->head)
+    while ((*list)->head)
     {
         temp = (*list)->head->next;
-        error = DeleteNodeListClients (& ( (*list)->head));
+        error = DeleteNodeListClients(&((*list)->head));
         if (error != NO_ERROR)
             return error;
         (*list)->head = temp;
     }
 
-    free (*list);
+    free(*list);
     *list = NULL;
 
     return NO_ERROR;
 }
 
-enum PhiChatErrors AddClientInList (__IN__ struct ListClients *list,
-                                    __IN__ struct Client *client)
+enum PhiChatErrors AddClientInList(__IN__ struct ListClients *list,
+                                   __IN__ struct Client *client)
 {
     if (list == NULL)
         return LIST_NULL;
@@ -154,15 +154,15 @@ enum PhiChatErrors AddClientInList (__IN__ struct ListClients *list,
     if (index->clientsNumber < MAX_CLIENTS_IN_NODE)
         return AddClientInNode (index, client);
 
-    enum PhiChatErrors error = NewNodeListClients (&index->next);
+    enum PhiChatErrors error = NewNodeListClients(&index->next);
     if (error != NO_ERROR)
         return error;
 
-    return AddClientInNode (index->next, client);
+    return AddClientInNode(index->next, client);
 }
 
-enum PhiChatErrors RemoveClientFromList (__IN__ struct ListClients *list,
-        __IN__ struct Client *client)
+enum PhiChatErrors RemoveClientFromList(__IN__ struct ListClients *list,
+                                        __IN__ struct Client *client)
 {
     if (list == NULL)
         return LIST_NULL;
@@ -175,13 +175,14 @@ enum PhiChatErrors RemoveClientFromList (__IN__ struct ListClients *list,
     while (index->next)
     {
         error = RemoveClientFromNode(index, client);
-        if(error == NO_ERROR)
+        if (error == NO_ERROR)
             return NO_ERROR;
-        else if(error == CLIENT_NOT_FOUND)
-            index = index->next;
         else
-            return error;
+            if (error == CLIENT_NOT_FOUND)
+                index = index->next;
+            else
+                return error;
     }
 
-    return RemoveClientFromNode (index, client);
+    return RemoveClientFromNode(index, client);
 }
