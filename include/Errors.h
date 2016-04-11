@@ -25,10 +25,10 @@ enum PhiChatErrors
     CLIENT_NOT_FOUND            = -14,
     NODE_NULL                   = -15,
     NODE_NOT_EMPTY              = -16,
-    NODE_NOT_NULL               = -17,
-    NODE_FULL                   = -18,
-    NODE_EMPTY                  = -19,
-    LIST_NULL                   = -20
+    NODE_FULL                   = -17,
+    NODE_EMPTY                  = -18,
+    LIST_NULL                   = -19,
+    LIST_NOT_EMPTY              = -20
 };
 
 #endif
