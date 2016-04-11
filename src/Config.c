@@ -24,7 +24,7 @@ enum PhiChatErrors NewConfig(__OUT__ struct Config** conf)
     (*conf)->databaseName = NULL;
     (*conf)->logfileName = NULL;
     (*conf)->end = 0;
-    (*conf)->respawn = 0;
+    (*conf)->respawn = DEFAULT_RESPAWN;
 
     return NO_ERROR;
 }

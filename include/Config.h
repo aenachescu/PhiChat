@@ -11,6 +11,7 @@
 
 #define DEFAULT_PORT 12000
 #define DEFAULT_MAX_CONNECTIONS 100
+#define DEFAULT_RESPAWN 24
 
 struct Config
 {
