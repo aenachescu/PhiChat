@@ -3,6 +3,7 @@
 #include <Lexer.h>
 
 #include <stdio.h>
+#include <stdlib.h>
 
 extern int yylex();
 extern int yylineno;
@@ -10,6 +11,10 @@ extern char* yytext;
 
 enum PhiChatErrors NewConfig(__OUT__ struct Config** conf)
 {
+    if (conf == NULL) {
+        return POINTER_NULL;
+    }
+
     *conf = malloc(sizeof(struct Config));
     (*conf)->port = DEFAULT_PORT;
     (*conf)->maxConnections = DEFAULT_MAX_CONNECTIONS;
@@ -43,7 +48,4 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config* conf, __IN__ const char* nam
     if (conf == NULL) {
         return POINTER_NULL;
     }
-
-    FILE *f = fopen(name, "r");
-    fclose(f);
 }
