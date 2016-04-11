@@ -77,23 +77,21 @@ enum PhiChatErrors RemoveClientFromNode(__IN__ struct NodeListClients *node,
     if (node->clientsNumber == 0)
         return NODE_EMPTY;
 
-    for (size_t i = 0; i < node->clientsNumber - 1; i++)
+    for (size_t i = 0; i < node->clientsNumber; i++)
     {
         if (node->clients[i] == client)
-            node->clients[i] = NULL;
-        if (node->clients[i] == NULL && node->clients[i + 1] != NULL)
         {
-            node->clients[i] = node->clients[i + 1];
-            node->clients[i + 1] = NULL;
+            for (size_t j = i + 1; j < node->clientsNumber; j++)
+                node->clients[j - 1] = node->clients[j];
+
+            node->clientsNumber--;
+            node->clients[node->clientsNumber] = NULL;
+
+            return NO_ERROR;
         }
     }
 
-    if (node->clients[node->clientsNumber-1] == node->clients[node->clientsNumber])
-        node->clients[node->clientsNumber] = NULL;
-    else
-        return CLIENT_NOT_FOUND;
-
-    return NO_ERROR;
+    return CLIENT_NOT_FOUND;
 }
 
 enum PhiChatErrors NewListClients(__OUT__ struct ListClients **list)
