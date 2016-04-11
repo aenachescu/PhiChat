@@ -6,6 +6,8 @@
 #ifndef PhiChat_CONFIG
 #define PhiChat_CONFIG
 
+#include <Errors.h>
+
 struct Config
 {
     int *port;
@@ -25,5 +27,11 @@ struct Config
     int end;
     unsigned long long int respawn;
 }
+
+enum PhiChatErrors NewConfig(__OUT__ struct Config**);
+
+enum PhiChatErrors DeleteConfig(__IN__ struct Config**);
+
+enum PhiChatErrors ReadConfig(__IN__ struct Config*, __IN__ const char*);
 
 #endif
