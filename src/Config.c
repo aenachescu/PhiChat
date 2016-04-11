@@ -37,7 +37,7 @@ enum PhiChatErrors DeleteConfig(__IN__ struct Config** conf)
     }
 
     if (*conf == NULL) {
-        return POINTER_NULL;
+        return CONFIG_NULL;
     }
 
     free(*conf);
@@ -47,7 +47,7 @@ enum PhiChatErrors DeleteConfig(__IN__ struct Config** conf)
 enum PhiChatErrors ReadConfig(__IN__ struct Config* conf, __IN__ const char* name)
 {
     if (conf == NULL) {
-        return POINTER_NULL;
+        return CONFIG_NULL;
     }
 
     yyin = fopen(name, "r");
