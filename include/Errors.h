@@ -33,7 +33,13 @@ enum PhiChatErrors
     CONFIG_UNEXPECTED           = -22,
     CONFIG_EXPECTED_ASSIGN      = -23,
     CONFIG_INTEGER_EXPECTED     = -24,
-    CONFIG_EXPECTED_IDENTIFIER  = -25
+    CONFIG_EXPECTED_IDENTIFIER  = -25,
+    DATABASE_NAME_NULL          = -27,
+    DATABASE_HOST_NULL          = -28,
+    DATABASE_USER_NULL          = -29,
+    DATABASE_PASSWORD_NULL      = -30,
+    DATABASE_NULL               = -31,
+    DATABASE_ERROR_INIT         = -32
 };
 
 #endif
