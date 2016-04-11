@@ -9,6 +9,7 @@ OBJS=\
 src/Client.o \
 src/Group.o \
 src/ListClients.o \
+src/Config.o \
 src/main.o \
 
 all: phiChat
