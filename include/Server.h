@@ -8,7 +8,7 @@
 
 #include <Defines.h>
 #include <Errors.h>
-#include <HeapGroup.h>
+#include <ListGroups.h>
 #include <Database.h>
 
 #ifdef __linux
