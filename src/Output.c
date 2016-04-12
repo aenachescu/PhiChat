@@ -40,14 +40,14 @@ void PrintMessage(__IN__ const char *message)
 
     if (terminal != NULL)
     {
-        printf(buffer);
-        printf(message);
+        printf("%s", buffer);
+        printf("%s", message);
     }
 
     if (logfile != NULL)
     {
-        fprintf(logfile, buffer);
-        fprintf(logfile, message);
+        fprintf(logfile, "%s", buffer);
+        fprintf(logfile, "%s", message);
     }
 }
 
