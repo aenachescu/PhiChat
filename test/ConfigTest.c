@@ -12,6 +12,11 @@ CUT_DEFINE_TEST(NewConfigTest)
     CUT_CHECK(config->respawn == DEFAULT_RESPAWN);
     CUT_CHECK(config->maxConnections == DEFAULT_MAX_CONNECTIONS);
     CUT_CHECK(config->databaseHost == NULL);
+    CUT_CHECK(config->databaseUser == NULL);
+    CUT_CHECK(config->databasePassword == NULL);
+    CUT_CHECK(config->databaseName == NULL);
+    CUT_CHECK(config->logfileName == NULL);
+    CUT_CHECK(config->end == 0);
     free(config);
 }
 
@@ -23,11 +28,11 @@ CUT_DEFINE_TEST(DeleteConfigTest)
     config = malloc(sizeof(struct Config));
     config->port = 0;
     config->maxConnections = 0;
-    config->databaseHost = NULL;
-    config->databaseUser = NULL;
-    config->databasePassword = NULL;
-    config->databaseName = NULL;
-    config->logfileName = NULL;
+    config->databaseHost = malloc(512);
+    config->databaseUser = malloc(512);
+    config->databasePassword = malloc(512);
+    config->databaseName = malloc(512);
+    config->logfileName = malloc(512);
     config->end = 0;
     config->respawn = 0;
     CUT_CHECK(DeleteConfig(&config) == NO_ERROR);
