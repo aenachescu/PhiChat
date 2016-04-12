@@ -36,6 +36,7 @@ CUT_DEFINE_TEST(DeleteConfigTest)
     config->end = 0;
     config->respawn = 0;
     CUT_CHECK(DeleteConfig(&config) == NO_ERROR);
+    CUT_CHECK(config == NULL);
 }
 
 CUT_DEFINE_MODULE(ConfigTest)
