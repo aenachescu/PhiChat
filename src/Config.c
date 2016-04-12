@@ -95,6 +95,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
             {
                 printf("':' was expected on line %d, but we got '%s'.\n",
                         yylineno, yytext);
+                DeleteConfig(&conf);
             }
         }
         else
@@ -105,6 +106,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                 {
                     printf("':' was expected on line %d, but we got '%s'.\n",
                             yylineno, yytext);
+                    DeleteConfig(&conf);
                 }
             }
             else
@@ -114,6 +116,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                 {
                     printf("'=' was expected on line %d, but we got '%s'.\n",
                             yylineno, yytext);
+                    DeleteConfig(&conf);
                     return CONFIG_EXPECTED_ASSIGN;
                 }
 
@@ -126,6 +129,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                         {
                             printf("Was expected an integer on line %d, but we got '%s'.\n",
                                     yylineno, yytext);
+                            DeleteConfig(&conf);
                             return CONFIG_INTEGER_EXPECTED;
                         }
 
@@ -137,6 +141,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                         {
                             printf("Was expected an integer on line %d, but we got '%s'.\n",
                                     yylineno, yytext);
+                            DeleteConfig(&conf);
                             return CONFIG_INTEGER_EXPECTED;
                         }
 
@@ -148,6 +153,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                         {
                             printf("Was expected an identifier on line %d, but we got '%s'.\n",
                                     yylineno, yytext);
+                            DeleteConfig(&conf);
                             return CONFIG_EXPECTED_IDENTIFIER;
                         }
 
@@ -162,6 +168,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                         {
                             printf("Was expected an identifier on line %d, but we got '%s'.\n",
                                     yylineno, yytext);
+                            DeleteConfig(&conf);
                             return CONFIG_EXPECTED_IDENTIFIER;
                         }
 
@@ -177,6 +184,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                         {
                             printf("Was expected an identifier on line %d, but we got '%s'.\n",
                                     yylineno, yytext);
+                            DeleteConfig(&conf);
                             return CONFIG_EXPECTED_IDENTIFIER;
                         }
 
@@ -191,6 +199,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                         {
                             printf("Was expected an identifier on line %d, but we got '%s'.\n",
                                     yylineno, yytext);
+                            DeleteConfig(&conf);
                             return CONFIG_EXPECTED_IDENTIFIER;
                         }
 
@@ -205,6 +214,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                         {
                             printf("Was expected an identifier on line %d, but we got '%s'.\n",
                                     yylineno, yytext);
+                            DeleteConfig(&conf);
                             return CONFIG_EXPECTED_IDENTIFIER;
                         }
 
@@ -219,6 +229,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                         {
                             printf("Was expected an identifier on line %d, but we got '%s'.\n",
                                     yylineno, yytext);
+                            DeleteConfig(&conf);
                             return CONFIG_EXPECTED_IDENTIFIER;
                         }
 
@@ -231,6 +242,7 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
                     default:
                         printf("Unexpected token '%s' on line %d.\n",
                                 yytext, yylineno);
+                        DeleteConfig(&conf);
                         return CONFIG_UNEXPECTED;
                         break;
                 }
