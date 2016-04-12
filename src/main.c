@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include <Server.h>
 #include <Config.h>
 #include <Output.h>
@@ -77,4 +78,3 @@ int main(int argc, char **argv)
 
     return EXIT_SUCCESS;
 }
-
