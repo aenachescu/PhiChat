@@ -18,6 +18,7 @@
 struct Server
 {
     int socket;
+    int port;
 #ifdef __linux
     pthread_t thread;
 #endif
@@ -26,7 +27,8 @@ struct Server
 };
 
 enum PhiChatErrors NewServer(__OUT__ struct Server**,
-                             __IN__  struct Database*);
+                             __IN__  struct Database*,
+                             __IN__  int port);
 
 enum PhiChatErrors DeleteServer(__IN__ struct Server**);
 
