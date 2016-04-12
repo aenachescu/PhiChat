@@ -8,17 +8,20 @@
 
 void ReadFromKeyboard(void)
 {
-    char buffer[128];
-    size_t size = 128;
+    size_t size = 0, length;
+    char *buffer = NULL;
 
-    int x;
     while (1)
     {
-        x = getline(&buffer, &size, stdin);
-        printf("%s %d\n",buffer, x);
+        length = getline(&buffer, &size, stdin);
+        buffer[length - 1] = '\0';
+        printf("%s\n", buffer);
         if (strcmp(buffer, "exit") == 0)
             break;
+
     }
+
+    free(buffer);
 }
 
 int main(int argc, char **argv)
