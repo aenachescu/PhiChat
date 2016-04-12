@@ -21,7 +21,7 @@ struct Server
 #ifdef __linux
     pthread_t thread;
 #endif
-    struct HeapGroup *groups;
+    struct ListGroups *groups;
     struct Database *database;
 };
 
