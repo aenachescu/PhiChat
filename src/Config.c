@@ -8,6 +8,7 @@
 #include <inttypes.h>
 
 extern int yylex();
+extern int yylex_destroy();
 extern int yylineno;
 extern char* yytext;
 extern FILE* yyin;
@@ -79,7 +80,8 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
         return CONFIG_FILENAME_NULL;
     }
 
-    yyin = fopen(name, "r");
+    FILE *f = fopen(name, "r");
+    yyin = f;
 
     int ntoken = yylex();
     int vtoken;
@@ -237,7 +239,8 @@ enum PhiChatErrors ReadConfig(__IN__ struct Config *conf,
         ntoken = yylex();
     }
 
-    fclose(yyin);
+    yylex_destroy();
+    fclose(f);
 
     return NO_ERROR;
 }
