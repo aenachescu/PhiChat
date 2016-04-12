@@ -48,6 +48,7 @@ int main(int argc, char **argv)
     err = NewConfig(&config);
     if (err != NO_ERROR)
     {
+        DeleteConfig(&config);
         PrintError(err, __LINE__, __FILE__);
         return EXIT_FAILURE;
     }
@@ -58,6 +59,7 @@ int main(int argc, char **argv)
         err = ReadConfig(config, "server.config");
         if (err != NO_ERROR)
         {
+            DeleteConfig(&config);
             PrintError(err, __LINE__, __FILE__);
             return EXIT_FAILURE;
         }
@@ -67,14 +69,15 @@ int main(int argc, char **argv)
         err = ReadConfig(config, argv[1]);
         if (err != NO_ERROR)
         {
+            DeleteConfig(&config);
             PrintError(err, __LINE__, __FILE__);
             return EXIT_FAILURE;
         }
     }
     PrintMessage("Configuration file is right\n");
 
+    DeleteConfig(&config);
     ReadFromKeyboard();
 
     return EXIT_SUCCESS;
 }
-
