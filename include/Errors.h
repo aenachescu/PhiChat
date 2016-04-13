@@ -47,7 +47,9 @@ enum PhiChatErrors
     DATABASE_PASSWORD_NULL      = -30,
     DATABASE_NULL               = -31,
     DATABASE_ERROR_INIT         = -32,
-    DATABASE_CONNECTION_FAILED  = -33
+    DATABASE_CONNECTION_FAILED  = -33,
+    DATABASE_STILL_OPENED       = -34,
+    DATABASE_MYSQL_NULL         = -35
 };
 
 #endif
