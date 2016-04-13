@@ -32,7 +32,7 @@ enum PhiChatErrors InitDatabase(__IN__ struct Database*);
 
 enum PhiChatErrors ConnectToDatabase(__IN__ struct Database*);
 
-enum PhiChatErrors DisconnecFromDatabase(__IN__ struct Database*);
+enum PhiChatErrors DisconnectFromDatabase(__IN__ struct Database*);
 
 #endif
 
