@@ -2,8 +2,32 @@
 #include <Errors.h>
 #include <ListGroups.h>
 
+#include <stdlib.h>
+
 enum PhiChatErrors NewNodeListGroups(__OUT__ struct NodeListGroups** node)
 {
+    if (node == NULL)
+    {
+        return POINTER_NULL;
+    }
+
+    (*node) = malloc(sizeof(struct NodeListGroups));
+    if ((*node) == NULL)
+    {
+        return NODE_NULL;
+    }
+    (*node)->next = NULL;
+    (*node)->group = NULL;
+
+    int err = NewGroup(&(*node)->group);
+    if (err != NO_ERROR)
+    {
+        return err;
+    }
+    if ((*node)->group == NULL) {
+        return GROUP_NULL;
+    }
+
     return NO_ERROR;
 }
 
