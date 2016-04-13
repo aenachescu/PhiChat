@@ -68,9 +68,8 @@ enum PhiChatErrors DeleteDatabase(__IN__ struct Database **db)
     if(*db == NULL)
         return DATABASE_NULL;
 
-    if((*db)->sql == NULL)
-        return DATABASE_NULL;
-    free((*db)->sql);
+    if ((*db)->sql != NULL)
+        return DATABASE_STILL_OPENED;
 
     if((*db)->name == NULL)
         return DATABASE_NAME_NULL;
@@ -93,6 +92,9 @@ enum PhiChatErrors DeleteDatabase(__IN__ struct Database **db)
 
     return NO_ERROR;
 }
+
+enum PhiChatErrors AddClientInListGroups(__IN__ struct ListGroups*,
+                                         __IN__ struct Client*);
 
 enum PhiChatErrors InitDatabase(__IN__ struct Database *db)
 {
@@ -117,6 +119,9 @@ enum PhiChatErrors ConnectToDatabase(__IN__ struct Database *db)
     if (db == NULL)
         return DATABASE_NULL;
 
+    if (db->sql == NULL)
+        return DATABASE_MYSQL_NULL;
+
     if (mysql_real_connect(db->sql, db->host, db->user, db->password,
                            db->name, 0, NULL, 0) == NULL)
     {
@@ -130,13 +135,13 @@ enum PhiChatErrors ConnectToDatabase(__IN__ struct Database *db)
     return NO_ERROR;
 }
 
-enum PhiChatErrors DisconnecFromDatabase(__IN__ struct Database *db)
+enum PhiChatErrors DisconnectFromDatabase(__IN__ struct Database *db)
 {
     if (db == NULL)
         return DATABASE_NULL;
 
     if (db->sql == NULL)
-        return DATABASE_NULL;
+        return DATABASE_MYSQL_NULL;
 
     mysql_close(db->sql);
     db->sql = NULL;
