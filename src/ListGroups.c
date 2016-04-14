@@ -24,7 +24,8 @@ enum PhiChatErrors NewNodeListGroups(__OUT__ struct NodeListGroups** node)
     {
         return err;
     }
-    if ((*node)->group == NULL) {
+    if ((*node)->group == NULL)
+    {
         return GROUP_NULL;
     }
 
@@ -33,6 +34,26 @@ enum PhiChatErrors NewNodeListGroups(__OUT__ struct NodeListGroups** node)
 
 enum PhiChatErrors DeleteNodeListGroups(__IN__ struct NodeListGroups** node)
 {
+    if (node == NULL)
+    {
+        return POINTER_NULL;
+    }
+
+    if ((*node) == NULL)
+    {
+        return NODE_NULL;
+    }
+
+    if ((*node)->group != NULL)
+    {
+        int err = DeleteGroup(&(*node)->group);
+        if (err != NO_ERROR)
+        {
+            return err;
+        }
+    }
+
+    free((*node));
     return NO_ERROR;
 }
 
