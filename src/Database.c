@@ -93,9 +93,6 @@ enum PhiChatErrors DeleteDatabase(__IN__ struct Database **db)
     return NO_ERROR;
 }
 
-enum PhiChatErrors AddClientInListGroups(__IN__ struct ListGroups*,
-                                         __IN__ struct Client*);
-
 enum PhiChatErrors InitDatabase(__IN__ struct Database *db)
 {
     if (db == NULL)
