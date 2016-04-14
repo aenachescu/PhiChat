@@ -94,6 +94,27 @@ enum PhiChatErrors AddClientInNodeListGroups(__IN__ struct NodeListGroups* node,
 enum PhiChatErrors RemoveClientFromNodeListGroups(__IN__ struct NodeListGroups* node,
                                                   __IN__ struct Client* client)
 {
+    if (node == NULL)
+    {
+        return NODE_NULL;
+    }
+
+    if (client == NULL)
+    {
+        return CLIENT_NULL;
+    }
+
+    if (node->group == NULL)
+    {
+        return GROUP_NULL;
+    }
+
+    int err = RemoveClientInGroup(node->group, client);
+    if (err != NO_ERROR)
+    {
+        return err;
+    }
+
     return NO_ERROR;
 }
 
