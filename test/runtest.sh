@@ -1,6 +1,6 @@
 # Run tests on Linux
 
-gcc -std=c99 -DPhiChat_TEST_MODE -o                 \
+gcc -std=gnu99 -DPhiChat_TEST_MODE -o               \
     tests Tests.c                                   \
     ClientTest.c ../src/Client.c                    \
     GroupTest.c ../src/Group.c                      \
