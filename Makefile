@@ -11,6 +11,7 @@ src/Output.o \
 src/Database.o \
 src/Group.o \
 src/ListClients.o \
+src/ListGroups.o \
 src/Config.o \
 src/main.o \
 src/Lexer.yy.c
