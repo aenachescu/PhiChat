@@ -120,6 +120,23 @@ enum PhiChatErrors RemoveClientFromNodeListGroups(__IN__ struct NodeListGroups* 
 
 enum PhiChatErrors NewListGroups(__OUT__ struct ListGroups** list)
 {
+    if (list == NULL)
+    {
+        return POINTER_NULL;
+    }
+
+    list = malloc(sizeof(struct ListGroups));
+    if ((*list) == NULL)
+    {
+        return POINTER_NULL;
+    }
+
+    int err = NewNodeListGroups(&(*list)->head);
+    if (err != NO_ERROR)
+    {
+        return err;
+    }
+    
     return NO_ERROR;
 }
 
