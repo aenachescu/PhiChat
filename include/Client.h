@@ -1,10 +1,15 @@
 #ifndef PhiChat_CLIENT
 #define PhiChat_CLIENT
 
+class Client;
+
 #include <Defines.h>
 #include <Exceptions.h>
+#include <Client.h>
+#include <Room.h>
 
 #include <cstdint>
+#include <array>
 
 class Client
 {
@@ -12,6 +17,7 @@ class Client
         char name[CLIENT_MAX_LENGTH_NAME];
         uint32_t sockfd;
         uint64_t id;
+        std::array<Room*, CLIENT_MAX_ROOMS> rooms;
 
     public:
         explicit Client(const uint32_t& _sockfd) :
