@@ -18,7 +18,14 @@ class Room
         std::list<std::pair<std::array<Client*, MAX_CLIENTS_IN_NODE>, uint64_t>> clients;
 
     public:
-        Room(uint64_t, const char*, uint8_t);
+        explicit Room(uint64_t, const char*, uint8_t);
+
+        ~Room()                         = default;
+        Room()                          = delete;
+        Room(const Room&)               = delete;
+        Room(Room&&)                    = delete;
+        Room& operator=(const Room&)    = delete;
+        Room& operator=(Room&&)         = delete;
 
         bool operator==(const uint64_t&) const;
         bool operator==(const char*) const;
