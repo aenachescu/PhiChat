@@ -29,6 +29,7 @@ class Room
 
         bool operator==(const uint64_t&) const;
         bool operator==(const char*) const;
+        bool operator==(const Client&) const;
         void operator+=(Client*);
         void operator-=(Client*);
 };
